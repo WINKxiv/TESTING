@@ -1,1 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flexbox Cheatsheet</title>
+    <link rel="stylesheet" href="resources/css/style.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <h1><code>display: flex</code> Cheatsheet</h1>
+      <p>Every container &amp; item property, with live examples.</p>
+      <nav class="toc">
+        <a href="#axes">Axes</a>
+        <a href="#container">Container</a>
+        <a href="#items">Items</a>
+        <a href="#patterns">Patterns</a>
+        <a href="#reference">Full reference</a>
+      </nav>
+    </header>
 
+    <div class="wrap">
+      <!-- ============ AXES ============ -->
+      <section id="axes">
+        <h2>The two axes</h2>
+        <p class="lead">
+          Everything in flexbox is described relative to the <b>main axis</b> (set by
+          <code>flex-direction</code>) and the <b>cross axis</b> (perpendicular to it).
+          <code>justify-content</code> works on the main axis, <code>align-items</code>
+          works on the cross axis.
+        </p>
+        <div class="axis-diagram">
+          <div class="axis-box">
+            <span class="axis-label main">main axis →</span>
+            <span class="axis-label cross">cross axis ↓</span>
+            <div class="demo-item">1</div>
+            <div class="demo-item">2</div>
+            <div class="demo-item">3</div>
+          </div>
+          <p class="axis-note">
+            With the default <code>flex-direction: row</code>, the main axis runs
+            <b>horizontally</b> and the cross axis runs <b>vertically</b>. Switch to
+            <code>column</code> and the two axes swap.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ CONTAINER ============ -->
+      <section id="container">
+        <h2>Container properties <span class="tag">on the parent</span></h2>
+        <p class="lead">Applied to the flex container — the element with <code>display: flex</code>.</p>
+
+        <!-- display -->
+        <div class="prop">
+          <div class="prop-head">
+            <h3>display</h3>
+            <span class="prop-default">default: <b>block</b></span>
+          </div>
+          <p class="desc">Turns an element into a flex container. Its direct children become flex items.</p>
+          <pre class="code-block"><span class="kw">.container</span> {
+  <span class="kw">display</span>: <span class="val">flex</span>;       <span class="cm">/* block-level flex container */</span>
+  <span class="kw">display</span>: <span class="val">inline-flex</span>; <span class="cm">/* inline-level flex container */</span>
+}</pre>
+          <h1>inline-flex</h1>
+          <p>A child container with display: inline-flex does not automatically fill the parent container. Its size depends on its content and any additional styles applied to it.</p>
+          <div class="cont">parent
+            <div class="inline-flex-c">child: inline flex</div>
+          </div>
+          <br>
+          <div class="cont">parent
+            <div class="inline-flex-c">
+              <div class="child-item">child 1</div>
+              <div class="child-item">child 2</div>
+            </div>
+            <div class="inline-flex-c">
+              <div class="child-item">child 1</div>
+              <div class="child-item">child 2</div>
+              <div class="child-item">child 3</div>
+            </div>
+          </div>
+          <br>
+          <div class="cont-flex">parent flex   
+            <div class="inline-flex-grow">child: inl-flex grow</div>
+            <div class="inline-flex-grow">child: inl-flex grow</div>
+          </div>
+          <h1>flex</h1>
+          <p>A child container with display: flex automatically fills the parent container's width because flex behaves like a block-level element, which expands to fit the parent's available width by default.</p>
+          <div class="cont">parent
+            <div class="flex-c">child: flex</div>
+          </div>
+          <br>
+          <div class="cont">parent
+            <div class="flex-c">
+              <div class="child-item">child 1</div>
+              <div class="child-item">child 2</div>
+            </div>
+            <div class="flex-c">
+              <div class="child-item">child 1</div>
+              <div class="child-item">child 2</div>
+              <div class="child-item">child 3</div>
+            </div>
+          </div>
+          <br>
+          <div class="cont-flex">parent flex 
+            <div class="flex-grow">child: flex grow</div>
+            <div class="flex-grow">child: flex grow</div>
+          </div>
+          <h1>Result</h1>
+          <p>The main difference is that <code>inline-flex</code> makes the container only as wide as its content requires, while <code>flex</code> makes it fill the available width of its parent container.</p>
+        </div>
+
+        <!-- flex-direction -->
+        <div class="prop">
+          <div class="prop-head">
+            <h3>flex-direction</h3>
+            <span class="prop-default">default: <b>row</b></span>
+          </div>
+          <p class="desc">Sets the direction of the main axis — which way items are laid out.</p>
+          <div class="demo-grid">
+            <div class="demo-card">
+              <code class="label">row</code>
+              <div class="demo demo-row">
+                <div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <code class="label">row-reverse</code>
+              <div class="demo demo-row-reverse">
+                <div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <code class="label">column</code>
+              <div class="demo demo-column">
+                <div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <code class="label">column-reverse</code>
+              <div class="demo demo-column-reverse">
+                <div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- flex-wrap -->
+        <div class="prop">
+          <div class="prop-head">
+            <h3>flex-wrap</h3>
+            <span class="prop-default">default: <b>nowrap</b></span>
+          </div>
+          <p class="desc">Controls whether items are forced onto one line or can wrap onto multiple lines.</p>
+          <div class="demo-grid">
+            <div class="demo-card">
+              <code class="label">nowrap</code>
+              <div class="demo demo-nowrap demo-wrap-narrow">
+                <div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div><div class="demo-item">4</div><div class="demo-item">5</div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <code class="label">wrap</code>
+              <div class="demo demo-wrap demo-wrap-narrow">
+                <div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div><div class="demo-item">4</div><div class="demo-item">5</div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <code class="label">wrap-reverse</code>
+              <div class="demo demo-wrap-reverse demo-wrap-narrow">
+                <div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div><div class="demo-item">4</div><div class="demo-item">5</div>
+              </div>
+            </div>
+          </div>
+          <p class="desc" style="margin-top:1rem">Shorthand: <code>flex-flow: &lt;direction&gt; &lt;wrap&gt;;</code> e.g. <code>flex-flow: row wrap;</code></p>
+        </div>
+
+        <!-- justify-content -->
+        <div class="prop">
+          <div class="prop-head">
+            <h3>justify-content</h3>
+            <span class="prop-default">default: <b>flex-start</b></span>
+          </div>
+          <p class="desc">Distributes items along the <b>main axis</b>.</p>
+          <div class="demo-grid">
+            <div class="demo-card">
+              <code class="label">flex-start</code>
+              <div class="demo demo-jc-start"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+            <div class="demo-card">
+              <code class="label">flex-end</code>
+              <div class="demo demo-jc-end"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+            <div class="demo-card">
+              <code class="label">center</code>
+              <div class="demo demo-jc-center"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+            <div class="demo-card">
+              <code class="label">space-between</code>
+              <div class="demo demo-jc-between"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+            <div class="demo-card">
+              <code class="label">space-around</code>
+              <div class="demo demo-jc-around"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+            <div class="demo-card">
+              <code class="label">space-evenly</code>
+              <div class="demo demo-jc-evenly"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- align-items -->
+        <div class="prop">
+          <div class="prop-head">
+            <h3>align-items</h3>
+            <span class="prop-default">default: <b>stretch</b></span>
+          </div>
+          <p class="desc">Aligns items along the <b>cross axis</b>, for a single line.</p>
+          <div class="demo-grid">
+            <div class="demo-card">
+              <code class="label">stretch</code>
+              <div class="demo demo-tall demo-ai-stretch">
+                <div class="demo-item h-auto">1</div><div class="demo-item h-auto">2</div><div class="demo-item h-auto">3</div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <code class="label">flex-start</code>
+              <div class="demo demo-tall demo-ai-start">
+                <div class="demo-item h-sm">1</div><div class="demo-item h-lg">2</div><div class="demo-item h-md">3</div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <code class="label">flex-end</code>
+              <div class="demo demo-tall demo-ai-end">
+                <div class="demo-item h-sm">1</div><div class="demo-item h-lg">2</div><div class="demo-item h-md">3</div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <code class="label">center</code>
+              <div class="demo demo-tall demo-ai-center">
+                <div class="demo-item h-sm">1</div><div class="demo-item h-lg">2</div><div class="demo-item h-md">3</div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <code class="label">baseline</code>
+              <div class="demo demo-tall demo-ai-baseline">
+                <div class="demo-item h-auto">1</div><div class="demo-item h-auto text-lg">2</div><div class="demo-item h-auto">3</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- align-content -->
+        <div class="prop">
+          <div class="prop-head">
+            <h3>align-content</h3>
+            <span class="prop-default">default: <b>normal (stretch)</b></span>
+          </div>
+          <p class="desc">Distributes <b>multiple lines</b> along the cross axis. Has no effect with a single line or <code>flex-wrap: nowrap</code>.</p>
+          <div class="demo-grid">
+            <div class="demo-card">
+              <code class="label">flex-start</code>
+              <div class="demo demo-ac demo-ac-start">
+                <div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div><div class="demo-item">4</div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <code class="label">flex-end</code>
+              <div class="demo demo-ac demo-ac-end">
+                <div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div><div class="demo-item">4</div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <code class="label">center</code>
+              <div class="demo demo-ac demo-ac-center">
+                <div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div><div class="demo-item">4</div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <code class="label">space-between</code>
+              <div class="demo demo-ac demo-ac-between">
+                <div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div><div class="demo-item">4</div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <code class="label">space-around</code>
+              <div class="demo demo-ac demo-ac-around">
+                <div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div><div class="demo-item">4</div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <code class="label">stretch</code>
+              <div class="demo demo-ac demo-ac-stretch">
+                <div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div><div class="demo-item">4</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- gap -->
+        <div class="prop">
+          <div class="prop-head">
+            <h3>gap / row-gap / column-gap</h3>
+            <span class="prop-default">default: <b>0</b></span>
+          </div>
+          <p class="desc">Space between items — no margin hacks needed. Doesn't add space before the first or after the last item.</p>
+          <div class="demo-grid">
+            <div class="demo-card">
+              <code class="label">gap: 0</code>
+              <div class="demo demo-gap-0"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+            <div class="demo-card">
+              <code class="label">gap: 0.35rem</code>
+              <div class="demo demo-gap-sm"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+            <div class="demo-card">
+              <code class="label">gap: 1.25rem</code>
+              <div class="demo demo-gap-lg"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ITEMS ============ -->
+      <section id="items">
+        <h2>Item properties <span class="tag">on the children</span></h2>
+        <p class="lead">Applied to individual flex items — they override the container's defaults for that one item.</p>
+
+        <!-- order -->
+        <div class="prop">
+          <div class="prop-head">
+            <h3>order</h3>
+            <span class="prop-default">default: <b>0</b></span>
+          </div>
+          <p class="desc">Changes the visual order of an item without touching the HTML. Items are sorted by <code>order</code>, then source order.</p>
+          <div class="demo-grid">
+            <div class="demo-card">
+              <code class="label">item 3 has order: -1</code>
+              <div class="demo demo-row">
+                <div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item order-first">3</div>
+              </div>
+            </div>
+            <div class="demo-card">
+              <code class="label">item 1 has order: 1</code>
+              <div class="demo demo-row">
+                <div class="demo-item order-last">1</div><div class="demo-item">2</div><div class="demo-item">3</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- flex-grow -->
+        <div class="prop">
+          <div class="prop-head">
+            <h3>flex-grow</h3>
+            <span class="prop-default">default: <b>0</b></span>
+          </div>
+          <p class="desc">How much an item grows to fill leftover space, relative to its siblings' <code>flex-grow</code>.</p>
+          <div class="demo-grid">
+            <div class="demo-card">
+              <code class="label">all: flex-grow: 1 (equal)</code>
+              <div class="demo demo-grow-eq"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+            <div class="demo-card">
+              <code class="label">1, 2, 1 → middle grows 2x</code>
+              <div class="demo demo-grow-mix"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- flex-shrink -->
+        <div class="prop">
+          <div class="prop-head">
+            <h3>flex-shrink</h3>
+            <span class="prop-default">default: <b>1</b></span>
+          </div>
+          <p class="desc">How much an item shrinks when there isn't enough space. Container below is narrower than its items' total width.</p>
+          <div class="demo-grid">
+            <div class="demo-card">
+              <code class="label">all shrink: 1 (default)</code>
+              <div class="demo demo-shrink"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+            <div class="demo-card">
+              <code class="label">item 2 has shrink: 0</code>
+              <div class="demo demo-shrink demo-shrink-0"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- flex-basis -->
+        <div class="prop">
+          <div class="prop-head">
+            <h3>flex-basis</h3>
+            <span class="prop-default">default: <b>auto</b></span>
+          </div>
+          <p class="desc">The item's starting size before growing/shrinking is applied — like <code>width</code>, but axis-aware.</p>
+          <div class="demo-card" style="max-width:320px">
+            <code class="label">item 1: flex-basis: 100% (wraps)</code>
+            <div class="demo demo-basis"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+          </div>
+        </div>
+
+        <!-- flex shorthand -->
+        <div class="prop">
+          <div class="prop-head">
+            <h3>flex <span class="prop-default" style="font-weight:400">(shorthand)</span></h3>
+            <span class="prop-default">default: <b>0 1 auto</b></span>
+          </div>
+          <p class="desc"><code>flex: &lt;grow&gt; &lt;shrink&gt; &lt;basis&gt;</code> — almost always use the shorthand instead of the longhands.</p>
+          <div class="demo-grid">
+            <div class="demo-card">
+              <code class="label">flex: 1  →  1 1 0%, fills space equally</code>
+              <div class="demo demo-flex-1"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+            <div class="demo-card">
+              <code class="label">item 2: flex: auto  →  1 1 auto</code>
+              <div class="demo demo-flex-auto"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+            <div class="demo-card">
+              <code class="label">item 2: flex: none  →  0 0 auto, rigid</code>
+              <div class="demo demo-flex-none"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+            </div>
+          </div>
+          <div class="ref-table-wrap" style="margin-top:1rem">
+            <table class="ref-table">
+              <thead><tr><th>Shorthand</th><th>Expands to</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td><code>flex: initial</code></td><td><code>0 1 auto</code></td><td>Default. Won't grow, can shrink.</td></tr>
+                <tr><td><code>flex: auto</code></td><td><code>1 1 auto</code></td><td>Grows and shrinks, starting from content size.</td></tr>
+                <tr><td><code>flex: none</code></td><td><code>0 0 auto</code></td><td>Fully rigid — won't grow or shrink.</td></tr>
+                <tr><td><code>flex: 1</code></td><td><code>1 1 0%</code></td><td>Grows/shrinks from zero — the classic "equal columns" value.</td></tr>
+                <tr><td><code>flex: 2</code></td><td><code>2 1 0%</code></td><td>Same, but takes twice the leftover space of a <code>flex: 1</code> sibling.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- align-self -->
+        <div class="prop">
+          <div class="prop-head">
+            <h3>align-self</h3>
+            <span class="prop-default">default: <b>auto</b> (follows align-items)</span>
+          </div>
+          <p class="desc">Overrides <code>align-items</code> for one specific item.</p>
+          <div class="demo-card" style="max-width:340px">
+            <code class="label">container: align-items: flex-start</code>
+            <div class="demo demo-self-tall">
+              <div class="demo-item h-md">1</div>
+              <div class="demo-item h-md self-center">2</div>
+              <div class="demo-item h-md self-end">3</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PATTERNS ============ -->
+      <section id="patterns">
+        <h2>Common patterns</h2>
+        <p class="lead">Recipes you'll reach for constantly.</p>
+
+        <div class="pattern-grid">
+          <div class="pattern-card">
+            <h3>Perfect centering</h3>
+            <pre class="code-block"><span class="kw">.container</span> {
+  <span class="kw">display</span>: <span class="val">flex</span>;
+  <span class="kw">justify-content</span>: <span class="val">center</span>;
+  <span class="kw">align-items</span>: <span class="val">center</span>;
+}</pre>
+            <div class="demo pattern-center"><div class="demo-item">★</div></div>
+          </div>
+
+          <div class="pattern-card">
+            <h3>Equal-width columns</h3>
+            <pre class="code-block"><span class="kw">.container</span> { <span class="kw">display</span>: <span class="val">flex</span>; <span class="kw">gap</span>: <span class="val">1rem</span>; }
+<span class="kw">.container</span> > <span class="kw">*</span> { <span class="kw">flex</span>: <span class="val">1</span>; }</pre>
+            <div class="demo demo-gap-sm pattern-columns"><div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div></div>
+          </div>
+
+          <div class="pattern-card">
+            <h3>Sticky footer</h3>
+            <pre class="code-block"><span class="kw">html, body</span> { <span class="kw">height</span>: <span class="val">100%</span>; }
+<span class="kw">.page</span> {
+  <span class="kw">display</span>: <span class="val">flex</span>;
+  <span class="kw">flex-direction</span>: <span class="val">column</span>;
+  <span class="kw">min-height</span>: <span class="val">100vh</span>;
+}
+<span class="kw">main</span> { <span class="kw">flex</span>: <span class="val">1</span>; } <span class="cm">/* pushes footer down */</span></pre>
+            <div class="demo pattern-sticky">
+              <div class="demo-item p-header">header</div>
+              <div class="demo-item p-main">main · flex: 1</div>
+              <div class="demo-item p-footer">footer</div>
+            </div>
+          </div>
+
+          <div class="pattern-card">
+            <h3>Navbar with spaced items</h3>
+            <pre class="code-block"><span class="kw">.navbar</span> {
+  <span class="kw">display</span>: <span class="val">flex</span>;
+  <span class="kw">justify-content</span>: <span class="val">space-between</span>;
+  <span class="kw">align-items</span>: <span class="val">center</span>;
+}</pre>
+            <div class="demo pattern-navbar">
+              <div class="demo-item">Logo</div>
+              <div class="demo-item">Links</div>
+              <div class="demo-item">Avatar</div>
+            </div>
+          </div>
+
+          <div class="pattern-card">
+            <h3>Responsive wrapping cards</h3>
+            <pre class="code-block"><span class="kw">.cards</span> {
+  <span class="kw">display</span>: <span class="val">flex</span>;
+  <span class="kw">flex-wrap</span>: <span class="val">wrap</span>;
+  <span class="kw">gap</span>: <span class="val">0.75rem</span>;
+}
+<span class="kw">.cards</span> > <span class="kw">*</span> { <span class="kw">flex</span>: <span class="val">1 1 90px</span>; }</pre>
+            <div class="demo demo-wrap demo-gap-sm pattern-wrap-cards">
+              <div class="demo-item">1</div><div class="demo-item">2</div><div class="demo-item">3</div><div class="demo-item">4</div><div class="demo-item">5</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ REFERENCE ============ -->
+      <section id="reference">
+        <h2>Full property reference</h2>
+        <p class="lead">Every value, in one table.</p>
+
+        <h3 style="color:var(--text-dim); font-size:0.85rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">Container</h3>
+        <div class="ref-table-wrap">
+          <table class="ref-table">
+            <thead><tr><th>Property</th><th>Values</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td><code><prop>display</prop></code></td><td><code><val>flex</val></code> · <code><val>inline-flex</val></code></td><td><code><val>block</val></code></td></tr>
+              <tr><td><code><prop>flex-direction</prop></code></td><td><code><val>row</val></code> · <code><val>row-reverse</val></code> · <code><val>column</val></code> · <code><val>column-reverse</val></code></td><td><code><val>row</val></code></td></tr>
+              <tr><td><code><prop>flex-wrap</prop></code></td><td><code><val>nowrap</val></code> · <code><val>wrap</val></code> · <code><val>wrap-reverse</val></code></td><td><code><val>nowrap</val></code></td></tr>
+              <tr><td><code><prop>flex-flow</prop></code></td><td><code>&lt;direction&gt; &lt;wrap&gt;</ code> (shorthand)</td><td>< code >< val >row nowrap</ val ></ code ></ td ></ tr >
+              <tr><td><code><prop>justify-content</prop></code></td><td><code>flex-start</ code > · < code >flex-end</ code > · < code >center</ code > · < code >space-between</ code > · < code >space-around</ code > · < code >space-evenly</ code ></ td >< td >< code >flex-start</ code ></ td ></ tr >
+              <tr><td><code><prop>align-items</prop></code></td><td><code><val>stretch</val></code> · <code><val>flex-start</val></code> · <code><val>flex-end</val></code> · <code><val>center</val></code> · <code><val>baseline</val></code></td><td><code><val>stretch</val></code></td></tr>
+              <tr><td><code><prop>align-content</prop></code></td><td><code><val>flex-start</val></code> · <code><val>flex-end</val></code> · <code><val>center</val></code> · <code><val>space-between</val></code> · <code><val>space-around</val></code> · <code><val>stretch</val></code></td><td><code><val>normal</val></code></td></tr>
+              <tr><td><code><prop>gap</prop></code> / <code><prop>row-gap</prop></code> / <code><prop>column-gap</prop></code></td><td>any length</td><td><code><val>0</val></code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="color:var(--text-dim); font-size:0.85rem; text-transform:uppercase; letter-spacing:0.05em; margin:1.5rem 0 0.5rem;">Items</h3>
+        <div class="ref-table-wrap">
+          <table class="ref-table">
+            <thead><tr><th>Property</th><th>Values</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td><code>order</code></td><td>any integer</td><td><code>0</code></td></tr>
+              <tr><td><code>flex-grow</code></td><td>any non-negative number</td><td><code>0</code></td></tr>
+              <tr><td><code>flex-shrink</code></td><td>any non-negative number</td><td><code>1</code></td></tr>
+              <tr><td><code>flex-basis</code></td><td><code>auto</code> · <code>0</code> · length · <code>%</code> · <code>content</code></td><td><code>auto</code></td></tr>
+              <tr><td><code>flex</code></td><td><code>&lt;grow&gt; &lt;shrink&gt; &lt;basis&gt;</code> shorthand</td><td><code>0 1 auto</code></td></tr>
+              <tr><td><code>align-self</code></td><td><code>auto</code> · <code>stretch</code> · <code>flex-start</code> · <code>flex-end</code> · <code>center</code> · <code>baseline</code></td><td><code>auto</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <footer class="page-footer">
+      <p>Flexbox Cheatsheet</p>
+    </footer>
+  </body>
+</html>
